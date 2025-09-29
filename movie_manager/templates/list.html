@@ -3,7 +3,7 @@
 {% load static %}
 <p>list</p>
 <table>
-    <tr><th>Title</th><th>Year</th><th>Summary</th></tr>
+    <tr><th>Title</th><th>Year</th><th>Summary</th><th>Edit/Delete</th></tr>
 {% for movie_obj in movies %}
 <tr>
     
@@ -12,6 +12,7 @@
 {# <img src="{% static 'images/' %}{{movie_obj.img}}" width="100" height="100"> #}
 <td><p>Summary: {{movie_obj.description|default:'No data'}}</p></td>
 <td><p>Year:{{movie_obj.year}}</p></td>
+<td><a href="{% url 'edit' movie_obj.id %}">edit</a>/<a href="{% url 'delete' movie_obj.id %}">delete</a></td>
 </tr>
 {% endfor %}
 </table>
