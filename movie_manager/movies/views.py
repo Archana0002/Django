@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from . models import MovieInfo
 # Create your views here.
 from . forms import MovieForm
+from django.contrib.auth.decorators import login_required
+
 def create(request):
     frm = MovieForm()
     if request.POST:
@@ -11,6 +13,8 @@ def create(request):
             return redirect('list')
        
     return render(request,'create.html',{'frm':frm})
+
+@login_required(login_url='/login/')
 
 def list(request):
     #print(request.COOKIES)
@@ -28,7 +32,7 @@ def list(request):
     #response.set_cookie('visits',visits)
     return response
 
-
+@login_required(login_url='/login/')
 def edit(request,pk):
     
     instance_to_be_edited = MovieInfo.objects.get(pk=pk)
@@ -65,3 +69,5 @@ def delete(request,pk):
     movie_set=MovieInfo.objects.all()
     print(movie_set)
     return render(request,'list.html',{'movies':movie_set})
+
+
